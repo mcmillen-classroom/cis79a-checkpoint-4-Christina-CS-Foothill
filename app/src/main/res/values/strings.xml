@@ -9,6 +9,7 @@
     <string name="hint_unavailable_text">Sorry, there is no hint available.</string>
     <string name="score_text">Score: 0</string>
     <string name="question_status_answered">You already answered this question.</string>
+    <string name="check_button">Check</string>
 
     <string name="question_1">The anime Bleach features a main character with bright red hair.</string>
 
@@ -27,4 +28,13 @@
 
     <string name="question_7">The primary military division in the Soul Society is split into 13 different
         squads, each with its own commanding captain. </string>
+
+    <string name="question_8">Which one of Ichigo\'s friend is a Quincy?</string>
+    <string name="question_8_hint">He wears glasses.</string>
+    <string-array name="question_8_answers">
+        <item>Uryu</item>
+        <item>Uryu Ishida</item>
+        <item>Ishida</item>
+        <item>Ishida Uryu</item>
+    </string-array>
 </resources>
