@@ -29,7 +29,7 @@
     <string name="question_7">The primary military division in the Soul Society is split into 13 different
         squads, each with its own commanding captain. </string>
 
-    <string name="question_8">Which one of Ichigo\'s friend is a Quincy?</string>
+    <string name="question_8">Which one of Ichigo\'s friends is a Quincy?</string>
     <string name="question_8_hint">He wears glasses.</string>
     <string-array name="question_8_answers">
         <item>Uryu</item>
