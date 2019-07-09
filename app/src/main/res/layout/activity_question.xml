@@ -86,19 +86,19 @@
 
         <Button
             android:id="@+id/a_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/b_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/c_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/d_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -126,6 +126,8 @@
 
 
     </LinearLayout>
+
+
 
 
     <TextView

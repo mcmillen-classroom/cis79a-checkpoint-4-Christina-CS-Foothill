@@ -51,6 +51,9 @@ public class Question {
     }
 
     //stub
+    public boolean checkAnswer(int ans){return false;}
+
+    //stub
     public boolean isTrueFalseQuestion(){return false;}
 
     //stub
@@ -58,6 +61,10 @@ public class Question {
 
     //stub
     public boolean isMultipleChoiceQuestion(){return false;}
+
+    public String getWordAt(int i){
+        return "";
+    }
 
 }
 

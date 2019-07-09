@@ -1,7 +1,7 @@
 package christinahunter.quizapp;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -25,12 +25,17 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayout mTrueFalseContainer;
     private LinearLayout mFillTheBlankContainer;
     private LinearLayout mMultipleChoiceContainer;
+    private Button mAMCButton;
+    private Button mBMCButton;
+    private Button mCMCButton;
+    private Button mDMCButton;
     private EditText mEditText;
     private Button mCheckButton;
     private int mScore = 0;
     private TextView mQuestionStatusView;
-    private Question[] mQuestionBank = new Question[8];
+    private Question[] mQuestionBank = new Question[9];
     private int mCurrentIndex = 0;
+    private Drawable mDefaultButtonStyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,8 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         //this is why the code was moved into the onCreate() method
         String[] q8Answers = getResources().getStringArray(R.array.question_8_answers);
         mQuestionBank[7] = new FillTheBlankQuestion(R.string.question_8,R.string.question_8_hint,q8Answers);
+        mQuestionBank[8] = new MultipleChoiceQuestion(R.string.question_9, R.string.question_9_hint,
+                getResources().getStringArray(R.array.question_9_answers),1);
 
         //set up the buttons, textviews and layouts/containers
         mQuestionStatusView = (TextView) findViewById(R.id.question_status);
@@ -67,6 +74,11 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         mCheckButton = (Button) findViewById(R.id.check_button);
         //multiple choice container
         mMultipleChoiceContainer = (LinearLayout) findViewById(R.id.multiple_choice_container);
+        mAMCButton = (Button) findViewById(R.id.a_button);
+        mBMCButton = (Button) findViewById(R.id.b_button);
+        mCMCButton = (Button) findViewById(R.id.c_button);
+        mDMCButton = (Button) findViewById(R.id.d_button);
+        mDefaultButtonStyle = mAMCButton.getBackground();
         //previous and next button container
         mNextButton = (ImageButton) findViewById(R.id.next_button);
         mPreviousButton = (ImageButton) findViewById(R.id.previous_button);
@@ -83,6 +95,10 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         mPreviousButton.setOnClickListener(this);
         mHintTextView.setOnClickListener(this);
         mCheckButton.setOnClickListener(this);
+        mAMCButton.setOnClickListener(this);
+        mBMCButton.setOnClickListener(this);
+        mCMCButton.setOnClickListener(this);
+        mDMCButton.setOnClickListener(this);
 
 
     }
@@ -110,6 +126,12 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             mTrueFalseContainer.setVisibility(View.GONE);
             mFillTheBlankContainer.setVisibility(View.GONE);
             mMultipleChoiceContainer.setVisibility(View.VISIBLE);
+            mAMCButton.setText(currQuestion.getWordAt(0));
+            mBMCButton.setText(currQuestion.getWordAt(1));
+            mCMCButton.setText(currQuestion.getWordAt(2));
+            mDMCButton.setText(currQuestion.getWordAt(3));
+
+
         }
 
     }
@@ -125,10 +147,11 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         else if(v.getId() == R.id.false_button && !currQuestion.isHasBeenAnswered()){
             checkAnswer(false);
         }
-        else if(v.getId() == R.id.check_button){
-
-            if(!currQuestion.isHasBeenAnswered())
-                checkAnswer(mEditText.getText().toString());
+        else if(v.getId() == R.id.check_button && !currQuestion.isHasBeenAnswered()){
+            if(checkAnswer(mEditText.getText().toString()))
+                mEditText.setTextColor(getResources().getColor(R.color.green));
+            else
+                mEditText.setTextColor(getResources().getColor(R.color.red));
 
         }
         else if(v.getId() == R.id.next_button){
@@ -161,6 +184,30 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
             else{
                 mHintTextView.setText(currQuestion.getmHintResId());
             }
+        }
+        else if(v.getId() == R.id.a_button && !currQuestion.isHasBeenAnswered()){
+            if(checkAnswer(0))
+                mAMCButton.setBackgroundColor(getResources().getColor(R.color.green));
+            else
+                mAMCButton.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        else if(v.getId() == R.id.b_button && !currQuestion.isHasBeenAnswered()){
+            if(checkAnswer(1))
+                mBMCButton.setBackgroundColor(getResources().getColor(R.color.green));
+            else
+                mBMCButton.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        else if(v.getId() == R.id.c_button && !currQuestion.isHasBeenAnswered()){
+            if(checkAnswer(2))
+                mCMCButton.setBackgroundColor(getResources().getColor(R.color.green));
+            else
+                mCMCButton.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        else if(v.getId() == R.id.d_button && !currQuestion.isHasBeenAnswered()){
+            if(checkAnswer(3))
+                mDMCButton.setBackgroundColor(getResources().getColor(R.color.green));
+            else
+                mDMCButton.setBackgroundColor(getResources().getColor(R.color.red));
         }
     }
 
@@ -204,6 +251,26 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    public boolean checkAnswer(int userInput){
+
+        if(currQuestion.checkAnswer(userInput)){
+            showToast("You are correct");
+            mScore++;
+            mScoreView.setText("Score: " + mScore);
+            currQuestion.setHasBeenAnswered(true);
+            return true;
+        }
+        else{
+            showToast("You are incorrect");
+            if(mScore > 0)
+                mScore--;
+            mScoreView.setText("Score: " + mScore);
+            currQuestion.setHasBeenAnswered(true);
+            return false;
+        }
+
+    }
+
     public void showToast(String s){
         Toast myToast = Toast.makeText(this, s, Toast.LENGTH_SHORT);
         myToast.setGravity(Gravity.TOP,0,0);
@@ -215,9 +282,13 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         for(Question q: mQuestionBank)
             q.setHasBeenAnswered(false);
 
-
         mQuestionStatusView.setText("");
         mEditText.setText("");
+        mEditText.setTextColor(getResources().getColor(R.color.colorBlack));
+        mAMCButton.setBackground(mDefaultButtonStyle);
+        mBMCButton.setBackground(mDefaultButtonStyle);
+        mCMCButton.setBackground(mDefaultButtonStyle);
+        mDMCButton.setBackground(mDefaultButtonStyle);
 
     }
 }
