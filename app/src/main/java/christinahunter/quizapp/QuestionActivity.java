@@ -24,6 +24,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     private TextView mScoreView;
     private LinearLayout mTrueFalseContainer;
     private LinearLayout mFillTheBlankContainer;
+    private LinearLayout mMultipleChoiceContainer;
     private EditText mEditText;
     private Button mCheckButton;
     private int mScore = 0;
@@ -64,6 +65,8 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         mFillTheBlankContainer = (LinearLayout) findViewById(R.id.fill_the_blank_container);
         mEditText = (EditText) findViewById(R.id.edit_text);
         mCheckButton = (Button) findViewById(R.id.check_button);
+        //multiple choice container
+        mMultipleChoiceContainer = (LinearLayout) findViewById(R.id.multiple_choice_container);
         //previous and next button container
         mNextButton = (ImageButton) findViewById(R.id.next_button);
         mPreviousButton = (ImageButton) findViewById(R.id.previous_button);
@@ -96,11 +99,19 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
         if(currQuestion.isTrueFalseQuestion()){
             mTrueFalseContainer.setVisibility(View.VISIBLE);
             mFillTheBlankContainer.setVisibility(View.GONE);
+            mMultipleChoiceContainer.setVisibility(View.GONE);
         }
         else if(currQuestion.isFillTheBlankQuestion()){
             mTrueFalseContainer.setVisibility(View.GONE);
             mFillTheBlankContainer.setVisibility(View.VISIBLE);
+            mMultipleChoiceContainer.setVisibility(View.GONE);
         }
+        else if(currQuestion.isMultipleChoiceQuestion()){
+            mTrueFalseContainer.setVisibility(View.GONE);
+            mFillTheBlankContainer.setVisibility(View.GONE);
+            mMultipleChoiceContainer.setVisibility(View.VISIBLE);
+        }
+
     }
 
 

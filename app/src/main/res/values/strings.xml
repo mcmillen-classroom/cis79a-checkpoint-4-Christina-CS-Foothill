@@ -37,4 +37,14 @@
         <item>Ishida</item>
         <item>Ishida Uryu</item>
     </string-array>
+
+    <string name="question_9">Who is the captain of squad 10?</string>
+    <string name="question_9_hint">He has an ice-type zanpakto.</string>
+    <string-array name="question_9_answers">
+        <item>Jushiro Ukitake</item>
+        <item>Toshiro Itsugaya</item>
+        <item>Renji Abarai</item>
+        <item>Sui Feng</item>
+    </string-array>
+
 </resources>
